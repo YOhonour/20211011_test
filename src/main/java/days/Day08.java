@@ -85,8 +85,31 @@ public class Day08 {
         }
         return result;
     }
-    
+    public int maxValue(int[][] grid){
+        int rows = grid.length;
+        int column = grid[0].length;
+        for (int n = 1; n < rows; n++){
+            grid[n][0] = grid[n][0]+grid[n-1][0];
+        }
+        for (int m = 1; m < column; m++){
+            grid[0][m] = grid[0][m]+grid[0][m-1];
+        }
+        for (int n = 1; n < rows; n++) {
+            for (int m = 1; m < column; m++) {
+                grid[n][m] = Math.max(grid[n][m-1],grid[n-1][m])+grid[n][m];
+            }
+        }
+        return grid[rows-1][column-1];
+    }
+
     public static void main(String[] args) {
-        System.out.println(new Day08().fib(5));
+        int[][] v = new int[][]
+                {
+                        {1, 3, 1},
+                        {1, 5, 1},
+                        {4, 2, 1}
+                };
+
+        System.out.println(new Day08().maxValue(v));
     }
 }
