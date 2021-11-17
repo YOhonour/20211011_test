@@ -34,17 +34,41 @@ public class Day10 {
     }
     public int translateNum(int num) {
         String s = String.valueOf(num);
-        int[] dp = new int[s.length()];
+        int[] dp = new int[s.length()+1];
         dp[0] = 1;
         dp[1] = 1;
-        for (int i = 2; i < s.length(); i++) {
+        for (int i = 2; i <= s.length(); i++) {
             String temp = s.substring(i-2,i);
-            
+            if (temp.compareTo("25") <= 0 && temp.compareTo("10") >= 0){
+                dp[i] = dp[i-1]+dp[i-2];
+            }else dp[i] = dp[i-1];
         }
-        return 0;
+        return dp[s.length()];
+    }
+    public int translateNum2(int num) {
+        String s = String.valueOf(num);
+        int a = 1;
+        int b = 1;
+        int c = 1;
+        for(int i = 2; i <= s.length(); i ++){
+            String temp = s.substring(i-2, i);
+            if(temp.compareTo("10") >= 0 && temp.compareTo("25") <= 0)
+            {
+                c = b + a;
+                a = b;
+                b = c;
+            }
+            else{
+                c = b;
+                a = b;
+                b = c;
+            }
+
+        }
+        return c;
     }
 
     public static void main(String[] args) {
-        System.out.println(String.valueOf(123456).substring(0,2));
+        System.out.println(new Day10().translateNum2(25));
     }
 }
