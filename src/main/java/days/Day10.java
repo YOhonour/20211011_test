@@ -68,7 +68,11 @@ public class Day10 {
         }
         return c;
     }
-    public int lengthOfLongestSubstring(String s) {
+    /*
+    寻找最长不重复子串
+    使用双循环查找法 O(n^2)
+     */
+    public int lengthOfLongestSubstring2(String s) {
         if (s.length() == 0 || s.length()==1) return s.length();
         char[] chars = s.toCharArray();
         int[] dp = new int[chars.length];
@@ -87,6 +91,43 @@ public class Day10 {
                 shifting++;
             }
             if (max < dp[i]) max = dp[i];
+        }
+        return max;
+    }
+    public int lengthOfLongestSubstring(String s){
+        HashMap<Character,Integer> map = new HashMap<>();//记录最近一次出现的下标
+        if (s.length() == 0 || s.length()==1) return s.length();
+        char[] chars = s.toCharArray();
+        int[] dp = new int[chars.length];
+        dp[0] = 1;
+        map.put(chars[0],0);
+        int max = 0;
+        for (int i = 1; i < chars.length; i++) {
+            if (map.containsKey(chars[i])){
+                int latestIndexOf_CharI = map.get(chars[i]);//当前字符最近一次出现的下标
+                int beginIndexOf_SubStr = i-dp[i-1];//以上一个字符为结尾的子串的初始下标
+                if ( latestIndexOf_CharI >= beginIndexOf_SubStr) {
+                    dp[i] = i-latestIndexOf_CharI;
+                }else {
+                    dp[i] = dp[i-1]+1;
+                }
+            }else {
+                dp[i] = dp[i-1]+1;
+            }
+            if (dp[i] > max) max = dp[i];
+            map.put(chars[i],i);//更新下标
+        }
+        return max;
+    }
+    public int lengthOfLongestSubstring3(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int max = 0;
+        int dp = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int latestIndexOf_CharI = map.getOrDefault(s.charAt(i),-1);
+            map.put(s.charAt(i),i);
+            dp = dp < i -latestIndexOf_CharI ? dp+1 : i -latestIndexOf_CharI;
+            max = Math.max(dp,max);
         }
         return max;
     }
