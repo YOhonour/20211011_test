@@ -1,5 +1,6 @@
 package days;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Day10 {
@@ -67,8 +68,29 @@ public class Day10 {
         }
         return c;
     }
-
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0 || s.length()==1) return s.length();
+        char[] chars = s.toCharArray();
+        int[] dp = new int[chars.length];
+        dp[0] = 1;
+        int max = 0;
+        for (int i = 1; i < chars.length; i++) {
+            int shifting = 1;//最少偏移1位
+            while (shifting <= dp[i-1]){
+                boolean flag = true;
+                if (chars[i] == chars[i-shifting]){
+                    dp[i] = shifting;
+                    break;
+                }else {
+                    dp[i] = dp[i-1]+1;
+                }
+                shifting++;
+            }
+            if (max < dp[i]) max = dp[i];
+        }
+        return max;
+    }
     public static void main(String[] args) {
-        System.out.println(new Day10().translateNum2(25));
+        System.out.println(new Day10().lengthOfLongestSubstring("abcabcbb"));
     }
 }
