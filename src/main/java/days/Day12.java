@@ -18,7 +18,7 @@ public class Day12 {
             ptr = head;
         }
         //ptr为最后一个节点
-        while ((l1_ptr != null) && (l2_ptr != null)){
+        while ((l1_ptr != null) || (l2_ptr != null)){
             if(l1_ptr == null){
                 ptr.next = l2_ptr;
                 break;
@@ -27,7 +27,7 @@ public class Day12 {
                 ptr.next = l1_ptr;
                 break;
             }
-            if (l1_ptr.val < l1_ptr.val){
+            if (l1_ptr.val <= l2_ptr.val){
                 ptr.next = l1_ptr;
                 l1_ptr = l1_ptr.next;//l1指针向后移动
                 ptr = ptr.next;
@@ -55,6 +55,6 @@ public class Day12 {
         ListNode A = day12.generateList(new int[]{1,2,4});
         ListNode B = day12.generateList(new int[]{1,3,4});
         ListNode result = day12.mergeTwoLists(A,B);
-
+        System.out.println(result);
     }
 }
