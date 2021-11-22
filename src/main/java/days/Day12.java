@@ -1,5 +1,8 @@
 package days;
 
+import java.util.HashMap;
+import java.util.Stack;
+
 public class Day12 {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null) return l2;
@@ -39,6 +42,63 @@ public class Day12 {
         }
         return head;
     }
+    //栈实现，慢
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+        Stack<ListNode> stackA = new Stack<>();
+        Stack<ListNode> stackB = new Stack<>();
+        ListNode ptr = headA;
+        while (ptr!=null){
+            stackA.push(ptr);
+            ptr = ptr.next;
+        }
+        ptr = headB;
+        while (ptr!=null){
+            stackB.push(ptr);
+            ptr = ptr.next;
+        }
+        ListNode A = stackA.pop();
+        ListNode B = stackB.pop();
+        ListNode result = A==B ? A : null;
+        if (result==null) return result;
+        while (true){
+            if (stackA.empty() || stackB.empty()) return result;
+            A = stackA.pop();
+            B = stackB.pop();
+            if (A != B) {
+                return result;
+            }else {
+                result = A;
+            }
+        }
+    }
+    //哈希表实现,居然更慢，wc
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        HashMap<ListNode,Integer>  map = new HashMap<>();
+        ListNode ptr = headA;
+        while (ptr!=null){
+            map.put(ptr,1);
+            ptr = ptr.next;
+        }
+        ptr = headB;
+        while (ptr!=null){
+            if (map.containsKey(ptr)){
+                return ptr;
+            }
+            ptr = ptr.next;
+        }
+        return null;
+    }
+    public ListNode getIntersectionNode3(ListNode headA, ListNode headB) {
+        ListNode A = headA,B = headB;
+        while (A  != B ){
+            //题解：https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/solution/jian-zhi-offer-52-liang-ge-lian-biao-de-gcruu/
+            //牛，两个链表在公共节点之前
+            A = A==null ? headB : A.next;
+            B = B==null ? headA : B.next;
+        }
+        return A;
+    }
     public ListNode generateList(int[] ints){
         ListNode head,ptr;
         head = new ListNode(ints[0]);
@@ -49,12 +109,28 @@ public class Day12 {
         }
         return head;
     }
-
+    public void combine(ListNode A,ListNode B,ListNode com){
+        ListNode ptr = A;
+        while (true){
+            if (ptr.next==null) break;
+            else ptr = ptr.next;
+        }
+        ptr.next = com;
+        ptr = B;
+        while (true){
+            if (ptr.next==null) break;
+            else ptr = ptr.next;
+        }
+        ptr.next = com;
+    }
     public static void main(String[] args) {
         Day12 day12 = new Day12();
-        ListNode A = day12.generateList(new int[]{1,2,4});
-        ListNode B = day12.generateList(new int[]{1,3,4});
-        ListNode result = day12.mergeTwoLists(A,B);
-        System.out.println(result);
+        ListNode comm = day12.generateList(new int[]{8,4,5});
+        ListNode A = day12.generateList(new int[]{4,1});
+        ListNode B = day12.generateList(new int[]{5,0,1});
+        day12.combine(A,B,comm);
+        System.out.println(A);
+        System.out.println(B);
+        day12.getIntersectionNode3(A,B);
     }
 }
