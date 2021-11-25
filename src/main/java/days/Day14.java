@@ -24,6 +24,17 @@ public class Day14 {
         return false;
     }
 
+    int nums(int a){
+        int s = 0;
+        while (a > 0){
+            s += a % 10;
+            a /= 10;
+        }
+        return s;
+    }
+    public int movingCount(int m, int n, int k) {
+        return 0;
+    }
     public static void main(String[] args) {
         Day14 day14 = new Day14();
         System.out.println();
