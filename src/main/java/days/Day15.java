@@ -37,13 +37,7 @@ public class Day15 {
     }
 
 
-    public List<Node> nodeList = new ArrayList<>();
-    public void midSearch(Node root){
-        if (root == null ) return;
-        if (root.left != null) midSearch(root.left);
-        nodeList.add(root);
-        if (root.right != null) midSearch(root.right);
-    }
+
 
     /**
      * 第一步中序遍历二叉树，再遍历队列修改左右指针值
@@ -51,6 +45,13 @@ public class Day15 {
      * @param root
      * @return
      */
+    public List<Node> nodeList = new ArrayList<>();
+    public void midSearch(Node root){
+        if (root == null ) return;
+        if (root.left != null) midSearch(root.left);
+        nodeList.add(root);
+        if (root.right != null) midSearch(root.right);
+    }
     public Node treeToDoublyList(Node root) {
         if (root == null) return null;
         midSearch(root);
@@ -62,5 +63,25 @@ public class Day15 {
             node.right = nodeList.get((i+size+1)%size);
         }
         return head;
+    }
+
+    /**
+     * 给定一棵二叉搜索树，请找出其中第k大的节点。https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
+     * 中序遍历，再遍历
+     * @param root
+     * @param k
+     * @return
+     */
+
+    public int kthLargest(TreeNode root, int k) {
+        midSearch(root);
+        return treeNodeList.get(treeNodeList.size()-k).val;
+    }
+    public List<TreeNode> treeNodeList = new ArrayList<>();
+    public void midSearch(TreeNode root){
+        if (root == null ) return;
+        if (root.left != null) midSearch(root.left);
+        treeNodeList.add(root);
+        if (root.right != null) midSearch(root.right);
     }
 }
