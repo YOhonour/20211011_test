@@ -72,7 +72,6 @@ public class Day15 {
      * @param k
      * @return
      */
-
     public int kthLargest(TreeNode root, int k) {
         midSearch(root);
         return treeNodeList.get(treeNodeList.size()-k).val;

@@ -7,14 +7,14 @@ public class ListNode {
     ListNode next;
     ListNode(int x) { val = x; }
 
-    @Override
-    public String toString() {
-        ArrayList<Integer> list = new ArrayList<>();
-        ListNode ptr = this;
-        while (ptr != null){
-            list.add(ptr.val);
-            ptr = ptr.next;
-        }
-        return list.toString();
-    }
+//    @Override
+//    public String toString() {
+//        ArrayList<Integer> list = new ArrayList<>();
+//        ListNode ptr = this;
+//        while (ptr != null){
+//            list.add(ptr.val);
+//            ptr = ptr.next;
+//        }
+//        return list.toString();
+//    }
 }
