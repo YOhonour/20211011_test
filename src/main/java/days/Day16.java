@@ -50,8 +50,9 @@ public class Day16 {
         int i = 0;
         while (nums[i]==0) i++;
         int zeros = i;
+        int gap = 0;
         while (i < nums.length-1){
-            int gap = nums[i+1]-nums[i]-1;
+            gap = nums[i+1]-nums[i]-1;
             if (gap<0) return false;
             zeros-=gap;
             if (zeros<0) return false;
