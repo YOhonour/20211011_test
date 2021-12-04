@@ -6,6 +6,13 @@ public class Day17 {
     public void fastSort(int[] arr){
         fastRecur(arr,0,arr.length-1);
     }
+
+    /**
+     *
+     * @param arr
+     * @param n
+     * @param m
+     */
     private void fastRecur(int[] arr,int n,int m){
         if (m<=n) return;
         int i = n;
