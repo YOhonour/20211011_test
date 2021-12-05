@@ -67,7 +67,7 @@ public class Day16 {
         day16.isStraight(ints);
     }
     public static void main1(String[] args) {
-        String[] strings = new String[]{"3","30","34","5","9"};
+        String[] strings;
         Day16 day16 = new Day16();
 
         strings = new String[]{"3","30","34","5","9"};
@@ -75,5 +75,11 @@ public class Day16 {
         System.out.println(Arrays.toString(strings));
 
         System.out.println(day16.compare("3","30"));
+        Integer[] ints = {2, 8, 9, 4, 6, 3, 1, 7, 5, 1};
+        LinkedList<Integer> integers = new LinkedList<>();
+        for (int i = 0; i < ints.length; i++) {
+            integers.add(ints[i]);
+        }
+        ;
     }
 }

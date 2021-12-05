@@ -1,8 +1,6 @@
 package days;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 public class Day17 {
     public void fastSort(int[] arr){
@@ -65,7 +63,8 @@ public class Day17 {
         arr[i] = arr[j];
         arr[j] = tmp;
     }
-    public static void main(String[] args) {
+
+    public static void main1(String[] args) {
         long between = 0;
         Day17 day17 = new Day17();
         //自定义的排序算法
@@ -111,5 +110,33 @@ public class Day17 {
         for (int i = 0; i < arr.length; i++) {
             System.out.println(i+": "+Arrays.toString(arr[i]));
         }
+    }
+
+
+
+    /////////////////////////////////////////////////////////////////
+
+
+}
+class MedianFinder{
+    Queue<Integer> A;
+    Queue<Integer> B;
+    public MedianFinder() {
+        A = new PriorityQueue<>();
+        B = new PriorityQueue<>(Comparator.reverseOrder());
+    }
+
+    public void addNum(int num) {
+        if (A.size() == B.size()){
+            B.add(num);
+            A.add(B.remove());
+        }else {
+            A.add(num);
+            B.add(A.remove());
+        }
+    }
+
+    public double findMedian() {
+        return A.size()==B.size() ? (A.peek()+B.peek())/2.0 : A.peek();
     }
 }
