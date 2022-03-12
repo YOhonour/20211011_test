@@ -1,5 +1,7 @@
 package days;
 
+import java.util.Stack;
+
 public class Day19
 {
     /*
@@ -69,6 +71,39 @@ public class Day19
         boolean a = n > 1 && sumNums3(n-1) > 0;
         res+=n;
         return res;
+    }
+
+
+    /**
+     * 剑指 Offer 68 - I. 二叉搜索树的最近公共祖先
+     * 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+     *
+     * 百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，
+     * 最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+     * @param root
+     */
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        /**
+         * 从根节点向下搜索
+         *    两种情况：
+         *             1. p q节点在当前root节点同侧 --->  继续向下搜索
+         *             2. 两个节点在两侧  ----> 搜索结束，此时达到最近公共节点
+         */
+        if(root.val > p.val && root.val > q.val){
+            return lowestCommonAncestor(root.left,p,q);
+        }else if (root.val < p.val && root.val < q.val){
+            return lowestCommonAncestor(root.right,p,q);
+        }
+        return root;
+    }
+
+    public void find(Stack<TreeNode> stack,TreeNode root,TreeNode target){
+        if (target.val == root.val) return;
+        stack.add(root);
+        if (target.val < root.val) find(stack,root.left,target);
+        if (target.val > root.val) find(stack,root.right,target);
     }
     public static void main(String[] args) {
         Day19 day19 = new Day19();
